@@ -21,31 +21,42 @@
     </header>
 
     <section class="category">
-      <div class="category-item">
+      <div class="category-item active" data-category="all">
+        <div class="icon-circle">
+          <img src="./img/AII.jpg" />
+        </div>
+        <span>전체</span>
+      </div>
+
+      <div class="category-item" data-category="outer">
         <div class="icon-circle">
           <img src="./img/outer.jpg" />
         </div>
         <span>아우터</span>
       </div>
-      <div class="category-item">
+
+      <div class="category-item" data-category="top">
         <div class="icon-circle">
           <img src="./img/top.jpg" />
         </div>
         <span>상의</span>
       </div>
-      <div class="category-item">
+
+      <div class="category-item" data-category="bottom">
         <div class="icon-circle">
           <img src="./img/bottom.jpg" />
         </div>
         <span>하의</span>
       </div>
-      <div class="category-item">
+
+      <div class="category-item" data-category="shoes">
         <div class="icon-circle">
           <img src="./img/shose.jpg" />
         </div>
         <span>신발</span>
       </div>
-      <div class="category-item">
+
+      <div class="category-item" data-category="bag">
         <div class="icon-circle">
           <img src="./img/bag.jpg" />
         </div>
@@ -54,7 +65,7 @@
     </section>
 
     <section class="feed">
-      <div class="product-card">
+      <div class="product-card" data-category="outer">
         <button class="wish-btn">♡</button>
         <img src="./img/y2kstyle.jpg" class="product-img" />
         <div class="product-info">
@@ -63,9 +74,8 @@
           <p class="price">34,400원</p>
         </div>
       </div>
-      
 
-      <div class="product-card">
+      <div class="product-card" data-category="outer">
         <button class="wish-btn">♡</button>
         <img src="./img/checkshirt.jpg" class="product-img" />
         <div class="product-info">
@@ -75,8 +85,7 @@
         </div>
       </div>
 
-
-      <div class="product-card">
+      <div class="product-card" data-category="outer">
         <button class="wish-btn">♡</button>
         <img src="./img/hode.jpg" class="product-img" />
         <div class="product-info">
@@ -86,7 +95,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="top">
         <button class="wish-btn">♡</button>
         <img src="./img/shirt.jpg" class="product-img" />
         <div class="product-info">
@@ -96,7 +105,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="bottom">
         <button class="wish-btn">♡</button>
         <img src="./img/bellba.jpg" class="product-img" />
         <div class="product-info">
@@ -106,7 +115,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="outer">
         <button class="wish-btn">♡</button>
         <img src="./img/rider.jpg" class="product-img" />
         <div class="product-info">
@@ -116,7 +125,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="shoes">
         <button class="wish-btn">♡</button>
         <img src="./img/boots.jpg" class="product-img" />
         <div class="product-info">
@@ -125,8 +134,8 @@
           <p class="price">38,400원</p>
         </div>
       </div>
-      
-      <div class="product-card">
+
+      <div class="product-card" data-category="bag">
         <button class="wish-btn">♡</button>
         <img src="./img/hopbag.jpg" class="product-img" />
         <div class="product-info">
@@ -136,7 +145,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="shoes">
         <button class="wish-btn">♡</button>
         <img src="./img/snow.jpg" class="product-img" />
         <div class="product-info">
@@ -146,7 +155,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="top">
         <button class="wish-btn">♡</button>
         <img src="./img/taineck.jpg" class="product-img" />
         <div class="product-info">
@@ -156,7 +165,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="bag">
         <button class="wish-btn">♡</button>
         <img src="./img/bbag.jpg" class="product-img" />
         <div class="product-info">
@@ -166,7 +175,7 @@
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-category="bottom">
         <button class="wish-btn">♡</button>
         <img src="./img/pants.jpg" class="product-img" />
         <div class="product-info">
@@ -175,10 +184,6 @@
           <p class="price">31,000원</p>
         </div>
       </div>
-
-    </section>
-
-      
     </section>
 
     <nav class="tab-bar">
@@ -201,8 +206,27 @@
     </nav>
 
     <script>
-      const wishBtns = document.querySelectorAll(".wish-btn");
+      const categories = document.querySelectorAll(".category-item");
+      const products = document.querySelectorAll(".product-card");
 
+      categories.forEach((category) => {
+        category.addEventListener("click", () => {
+          categories.forEach((c) => c.classList.remove("active"));
+          category.classList.add("active");
+
+          const selected = category.dataset.category;
+
+          products.forEach((product) => {
+            if (selected === "all" || product.dataset.category === selected) {
+              product.style.display = "block";
+            } else {
+              product.style.display = "none";
+            }
+          });
+        });
+      });
+
+      const wishBtns = document.querySelectorAll(".wish-btn");
       wishBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
